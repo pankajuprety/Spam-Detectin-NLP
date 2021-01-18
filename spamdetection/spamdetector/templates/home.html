@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <br>
+    <h1 style="color:white" align="right">Test me for Spam or Ham....</h1>
+    <div class="jumbotron text-center " style="padding-top: 10px">
+        <h2>What is Spam Detector, what does it do?</h2>
+        <div><p>Unsolicited messages which we did not ask for from a source is what we call <b><a
+                href="https://blog.barracuda.com/2013/10/03/ham-v-spam-whats-the-difference/">SPAM</a></b>.<br> Messages
+            which are the desired ones and are not spam are known as <b><a
+                    href="https://blog.barracuda.com/2013/10/03/ham-v-spam-whats-the-difference/">HAM</a></b>.
+            <br> Wait! Don't go away, I got an example of a spam. Yes the one below! <br> <em
+                    style="color:rebeccapurple">A [redacted] loan for Rs 100K is approved for you if you receive this
+                SMS. 1 min verification & cash in 1 hr at www.[redacted].co.in to opt out reply stop</em></p>
+            <p>This web app is powered with ML, NLP which identifies whether the message is a spam or not.</p>
+            <p><b>Write or paste a message/email in the text box below to find out whether it's a spam or not?</b></p></div>
+        <form method="post">
+            {#    	<input type="text" class="" name="message" placeholder="Write your message here..." required="required" />#}
+            <textarea class="btn-block" name="message" placeholder="Write here... eg; A [redacted] loan for Rs 100K is approved for you if you receive this SMS. 1 min verification & cash in 1 hr at www.[redacted].co.in to opt out reply stop "
+                      required="required" rows="6" ></textarea>
+            <br>
+            <button type="submit" onclick="scrollDown()" class="btn btn-danger btn-lg"> Spam Or Ham ! Check
+                me out!
+            </button>
+            {% csrf_token %}
+        </form>
+    </div>
+
+    <br><br>
+    <div id="scroll">
+
+        {% if result %}
+            {#    <script> gotoBottom("result") </script>#}
+         <p> Result-</p>
+
+
+            <div class="jumbotron " style="padding-top: 10px" id="result">
+                <script>scrollDown();</script>
+
+                <div> You entered <br> "{{ message }}" <br></div>
+                <p>which is <strong style="font-size: larger">{{ result }}</strong>!</p> <br>
+                <p>Test accuracy: {{ accuracy }}%</p>
+                <p> Under the hood: Naive Bayes, with NLP(BOW, TF-IDF)</p>
+            </div>
+            <script>scrollDown();</script>
+
+
+        {% else %}
+            <p></p>
+        {% endif %}
+
+        <div class="text-center container" style="color:whitesmoke">
+            <hr style="background: whitesmoke">
+            <h3> Made by <b> Pankaj Uprety </b> with <b>Love!</b> <br>
+                <b aligh="center">!!!Gracias!!!</b></h3>
+            <h6>Git id for contact or queries; <a
+                    href="https://github.com/pankajuprety" style="color:violet"><b>Pankaj Uprety/spam-ham-web-app</b></a></h6>
+            <p> For any queries reach out to me on.</p>
+            <div class="text-center list-group col-sm-4 container">
+                <a href="https://www.linkedin.com/in/pankaj-uprety-14101b10b" class="list-group-item">LinkedIn</a>
+                <a href="https://github.com/pankajuprety" class="list-group-item">GitHub</a>
+            </div>
+            {% if result %}
+                <script>scrollDown();</script>
+
+            {% endif %}
+        </div>
+    </div>
+
+    {#    <script>scrollDown();</script>#}
+
+
+{% endblock %}
